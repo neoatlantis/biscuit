@@ -1,5 +1,5 @@
-Biscuit: a printable table of random passwords
-==============================================
+Biscuit: a printable matrix of random passwords
+===============================================
 
 Biscuit is designed for important applications where a limit on authentication 
 attempts is imposed. In such cases, it reduces the possibility of successful
