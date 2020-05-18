@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Biscuit</title>
+<script src="biscuit.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+
+<style>
+#biscuit {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#biscuit table{
+    cursor: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: small;
+    border-collapse: collapse;
+    width: 100%;
+}
+#biscuit table td{
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+#biscuit tr.row-header{
+    background-color: #5dade2;
+}
+#biscuit tr.row-password:nth-child(even){
+    background-color: #cccccc;
+}
+#biscuit .row-number,.col-number{
+    font-weight: bold;
+}
+.biscuit-id{
+    text-align: center;
+    line-height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#biscuit-id{ font-family: monospace; }
+</style>
+
+</head>
+<body>
+
+<div id="biscuit"></div>
+
+</body>
+</html>
