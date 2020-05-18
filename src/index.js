@@ -50,18 +50,11 @@ function table(biscuit){
 
 $(async function(){
 
-    const biscuit = await Biscuit.new(14);
+    /*const biscuit = await Biscuit.new(14);
 
     table(biscuit).appendTo("#biscuit");
-    $("#biscuit-id").text(biscuit.id);
+    $("#biscuit-id").text(biscuit.id);*/
 
-    /*.then((x) => {
-        console.log(x);
-        console.log(x.cell(0, 0));
-
-        y = new Biscuit("UBJXY4FCAT1XE71S");
-        console.log(y.cell(0, 0));
-    });*/
 
 
 });

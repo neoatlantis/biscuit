@@ -24,7 +24,7 @@
 }
 #biscuit table td{
     border: 1px solid black;
-    padding: 5px;
+    padding: 0.15rem 0.3rem 0.15rem 0.3rem;
     text-align: center;
 }
 #biscuit tr.row-header{
@@ -43,10 +43,44 @@
     font-weight: bold;
 }
 #biscuit-id{ font-family: monospace; }
+
+#main{
+    text-align: center;
+    font-family: sans-serif;
+    padding: 10% 15% 10% 15%;
+}
+
 </style>
 
 </head>
 <body>
+
+
+<div id="main">
+
+    <h1>Biscuit: a piece of random passwords</h1>
+
+    <div>
+        Biscuit is a big, printable table with 260 passwords generated from a
+        single ID string.
+    
+        <br /><br />Biscuit helps you to pick a random password for important
+        purposes, e.g. smartcard PINs. With less than 0.4% probability in one
+        guess, even after 3 attempts it's unlikely to crack!
+    </div>
+
+    <div style="margin-top: 4em;">
+        <a href="/#generate">Get your biscuit now!</a>
+    </div>
+
+    <div style="margin-top: 1em;">
+        Already have a biscuit?
+        <br />
+        <input type="password" placeholder="Biscuit ID"/>
+        <button>Go</button>
+    </div>
+
+</div>
 
 <div id="biscuit"></div>
 
