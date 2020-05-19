@@ -45,16 +45,46 @@ function table(biscuit){
 }
 
 
+function showBiscuit(biscuit){
+    $("#biscuit").show().html(table(biscuit)[0].outerHTML);
+    $("#main").hide();
+}
 
 
 
 $(async function(){
 
-    /*const biscuit = await Biscuit.new(14);
+    const BISCUIT_VERSION = 14;
 
-    table(biscuit).appendTo("#biscuit");
-    $("#biscuit-id").text(biscuit.id);*/
+    $("#new-biscuit").click(async function(){
+        showBiscuit(await Biscuit.new(BISCUIT_VERSION));
+    });
 
+    $("#load-biscuit").click(function(){
+        var id = $("#load-biscuit-id").val();
+        id = id.replace(/[^0-9A-Z]/gi, "").toUpperCase();
 
+        try{
+            const biscuit = new Biscuit(id, BISCUIT_VERSION);
+            showBiscuit(biscuit);
+            $("#load-biscuit-id").val("");
+        } catch(e){
+        }
+    });
+
+    $("#load-biscuit-id").on("keypress keydown keyup changed", function(e){
+        if(e.key == "Enter"){
+            return $("#load-biscuit").click();
+        }
+        const val = $(this).val().replace(/[^0-9a-z]/gi, "").toUpperCase();
+        var valid = false;
+        try{
+            Biscuit.verifyID(val);
+            valid = true;
+        } catch(e){
+        }
+        $(this).toggleClass("valid", valid).toggleClass("invalid", !valid && val != "");
+        valid ? $("#load-biscuit").removeAttr("disabled") : $("#load-biscuit").attr("disabled", true);
+    });
 
 });

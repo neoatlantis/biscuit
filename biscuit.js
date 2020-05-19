@@ -34,7 +34,7 @@ class Biscuit{
         return new Biscuit(id, version);
     }
 
-    getID(id){
+    static verifyID(id){
         // if id is given, check the id, otherwise, returns a string of random
         // id.
         // id have chars in 0-9A-Z, 16 in total, incl. 2 checksums
@@ -56,7 +56,7 @@ class Biscuit{
         const zero8 = new Uint32Array([0,0]).buffer;
         const zero64 = new Uint32Array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]).buffer;
 
-        this.id = this.getID(id);
+        this.id = Biscuit.verifyID(id);
 
         const salsa20 = new Salsa20().key(ASCII2Uint8Array(id)).nonce(zero8);
 
@@ -122,17 +122,47 @@ function table(biscuit){
 }
 
 
+function showBiscuit(biscuit){
+    $("#biscuit").show().html(table(biscuit)[0].outerHTML);
+    $("#main").hide();
+}
 
 
 
 $(async function(){
 
-    /*const biscuit = await Biscuit.new(14);
+    const BISCUIT_VERSION = 14;
 
-    table(biscuit).appendTo("#biscuit");
-    $("#biscuit-id").text(biscuit.id);*/
+    $("#new-biscuit").click(async function(){
+        showBiscuit(await Biscuit.new(BISCUIT_VERSION));
+    });
 
+    $("#load-biscuit").click(function(){
+        var id = $("#load-biscuit-id").val();
+        id = id.replace(/[^0-9A-Z]/gi, "").toUpperCase();
 
+        try{
+            const biscuit = new Biscuit(id, BISCUIT_VERSION);
+            showBiscuit(biscuit);
+            $("#load-biscuit-id").val("");
+        } catch(e){
+        }
+    });
+
+    $("#load-biscuit-id").on("keypress keydown keyup changed", function(e){
+        if(e.key == "Enter"){
+            return $("#load-biscuit").click();
+        }
+        const val = $(this).val().replace(/[^0-9a-z]/gi, "").toUpperCase();
+        var valid = false;
+        try{
+            Biscuit.verifyID(val);
+            valid = true;
+        } catch(e){
+        }
+        $(this).toggleClass("valid", valid).toggleClass("invalid", !valid && val != "");
+        valid ? $("#load-biscuit").removeAttr("disabled") : $("#load-biscuit").attr("disabled", true);
+    });
 
 });
 

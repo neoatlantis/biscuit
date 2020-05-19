@@ -50,6 +50,16 @@
     padding: 10% 15% 10% 15%;
 }
 
+input,button{
+    font-size: 1.2rem;
+}
+input.valid{
+    background-color: #AAFFAA;
+}
+input.invalid{
+    background-color: #FFAAAA;
+}
+
 </style>
 
 </head>
@@ -70,14 +80,15 @@
     </div>
 
     <div style="margin-top: 4em;">
-        <a href="/#generate">Get your biscuit now!</a>
+        <a href="#" id="new-biscuit">Get your biscuit now!</a>
     </div>
 
-    <div style="margin-top: 1em;">
+    <div style="margin-top: 2em;">
         Already have a biscuit?
         <br />
-        <input type="password" placeholder="Biscuit ID"/>
-        <button>Go</button>
+        <br />
+        <input type="password" id="load-biscuit-id" placeholder="Biscuit ID"/>
+        <button id="load-biscuit" disabled>Go</button>
     </div>
 
 </div>

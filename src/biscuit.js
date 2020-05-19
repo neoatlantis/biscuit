@@ -33,7 +33,7 @@ class Biscuit{
         return new Biscuit(id, version);
     }
 
-    getID(id){
+    static verifyID(id){
         // if id is given, check the id, otherwise, returns a string of random
         // id.
         // id have chars in 0-9A-Z, 16 in total, incl. 2 checksums
@@ -55,7 +55,7 @@ class Biscuit{
         const zero8 = new Uint32Array([0,0]).buffer;
         const zero64 = new Uint32Array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]).buffer;
 
-        this.id = this.getID(id);
+        this.id = Biscuit.verifyID(id);
 
         const salsa20 = new Salsa20().key(ASCII2Uint8Array(id)).nonce(zero8);
 
