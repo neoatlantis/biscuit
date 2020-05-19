@@ -7,14 +7,22 @@ function table(biscuit){
     var table = $("<table>");
 
     function formatID(id){
-        const parts = /^([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})$/i.exec(id);
+        const parts = /^([0-9A-Z]{8})([0-9A-Z]{8})([0-9A-Z]{8})([0-9A-Z]{8})$/i.exec(id);
         return parts.slice(1).join("-");
     }
 
-    const marker = '<tr><td colspan="' + (R+2) + '">' +
-        '<strong>Biscuit ID</strong>: ' + formatID(biscuit.id) + '</td></tr>';
+    const warning = [
+        '<tr><td class="warning" colspan="' + (R+2) + '">',
+        '<strong>FOR YOUR EYES ONLY. DO NOT TOUCH, POINT TO, OR MARK ON THE TABLE.</strong>',
+        '</td></tr>',
+    ].join("");
+    const marker = [
+        '<tr><td colspan="' + (R+2) + '">',
+        '<strong>Biscuit ID</strong>: ',
+        formatID(biscuit.id) + '</td></tr>',
+    ].join("");
 
-    table.append(marker);
+    table.append(warning).append(marker);
 
     for(var r=0; r<=R+1; r++){
         var row = $("<tr>");
@@ -40,13 +48,14 @@ function table(biscuit){
         table.append(row);
     }
 
-    table.append(marker);
+    table.append(marker).append(warning);
+
     return table;
 }
 
 
 function showBiscuit(biscuit){
-    $("#biscuit").show().html(table(biscuit)[0].outerHTML);
+    $("#biscuit").show().find("#biscuit-body").html(table(biscuit)[0].outerHTML);
     $("#main").hide();
 }
 

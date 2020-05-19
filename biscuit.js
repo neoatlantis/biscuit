@@ -20,17 +20,20 @@ function bytes2chars(u8array){
 }
 
 
+const BISCUIT_ID_LENGTH = 32;
+
+
 class Biscuit{
 
 
     static async new(version){
         var id = "";
         var pool = new Uint8Array(32);
-        while(id.length < 14){
+        while(id.length < BISCUIT_ID_LENGTH - 2){
             await window.crypto.getRandomValues(pool);
             id += bytes2chars(pool);
         }
-        id = checksum.complete(id.slice(0, 14));
+        id = checksum.complete(id.slice(0, BISCUIT_ID_LENGTH-2));
         return new Biscuit(id, version);
     }
 
@@ -38,7 +41,7 @@ class Biscuit{
         // if id is given, check the id, otherwise, returns a string of random
         // id.
         // id have chars in 0-9A-Z, 16 in total, incl. 2 checksums
-        if(id.length != 16 || typeof id != "string"){
+        if(id.length != BISCUIT_ID_LENGTH || typeof id != "string"){
             throw Error("Invalid id.");
         }
         if(!(new iso7064.MOD1271_36()).verify(id)){
@@ -84,14 +87,22 @@ function table(biscuit){
     var table = $("<table>");
 
     function formatID(id){
-        const parts = /^([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})$/i.exec(id);
+        const parts = /^([0-9A-Z]{8})([0-9A-Z]{8})([0-9A-Z]{8})([0-9A-Z]{8})$/i.exec(id);
         return parts.slice(1).join("-");
     }
 
-    const marker = '<tr><td colspan="' + (R+2) + '">' +
-        '<strong>Biscuit ID</strong>: ' + formatID(biscuit.id) + '</td></tr>';
+    const warning = [
+        '<tr><td class="warning" colspan="' + (R+2) + '">',
+        '<strong>FOR YOUR EYES ONLY. DO NOT TOUCH, POINT TO, OR MARK ON THE TABLE.</strong>',
+        '</td></tr>',
+    ].join("");
+    const marker = [
+        '<tr><td colspan="' + (R+2) + '">',
+        '<strong>Biscuit ID</strong>: ',
+        formatID(biscuit.id) + '</td></tr>',
+    ].join("");
 
-    table.append(marker);
+    table.append(warning).append(marker);
 
     for(var r=0; r<=R+1; r++){
         var row = $("<tr>");
@@ -117,13 +128,14 @@ function table(biscuit){
         table.append(row);
     }
 
-    table.append(marker);
+    table.append(marker).append(warning);
+
     return table;
 }
 
 
 function showBiscuit(biscuit){
-    $("#biscuit").show().html(table(biscuit)[0].outerHTML);
+    $("#biscuit").show().find("#biscuit-body").html(table(biscuit)[0].outerHTML);
     $("#main").hide();
 }
 

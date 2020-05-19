@@ -2,6 +2,7 @@
 <html>
 <head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Biscuit</title>
 <script src="biscuit.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -14,6 +15,7 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    display: none;
 }
 #biscuit table{
     cursor: none;
@@ -36,13 +38,10 @@
 #biscuit .row-number,.col-number{
     font-weight: bold;
 }
-.biscuit-id{
-    text-align: center;
-    line-height: 2em;
-    font-size: 1.5em;
-    font-weight: bold;
+#biscuit td.warning{
+    background: #EE0000;
+    color: #FFFFFF;
 }
-#biscuit-id{ font-family: monospace; }
 
 #main{
     text-align: center;
@@ -87,13 +86,37 @@ input.invalid{
         Already have a biscuit?
         <br />
         <br />
-        <input type="password" id="load-biscuit-id" placeholder="Biscuit ID"/>
+        <input type="text" id="load-biscuit-id" placeholder="Biscuit ID"/>
         <button id="load-biscuit" disabled>Go</button>
+    </div>
+
+    <div style="margin-top: 3em; font-size: 0.9rem">
+        <div>***</div>
+        <div>
+        You are advised to use a screen large enough to view the biscuit.
+        Scrolling between parts of the table should be avoided.
+        </div>
     </div>
 
 </div>
 
-<div id="biscuit"></div>
+<div id="biscuit">
+    <div id="biscuit-body"></div>
+    <div style="margin-top: 1em">
+        <strong>Notices:</strong>
+        <ul>
+        <li>
+        This table carries random passwords for applications on user's choice.
+        </li>
+        <li>
+            To regenerate this page, you have to record at least the
+            <strong>Biscuit ID</strong>. Write it down on water-soluable paper
+            makes it easier to kill the biscuit. You may also print out the whole
+            table.
+        </li>
+        </ul>
+    </div>
+</div>
 
 </body>
 </html>
