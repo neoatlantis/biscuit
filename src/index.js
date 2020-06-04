@@ -81,7 +81,7 @@ $(async function(){
         }
     });
 
-    $("#load-biscuit-id").on("keypress keydown keyup changed", function(e){
+    $("#load-biscuit-id").on("keypress keydown keyup changed input", function(e){
         if(e.key == "Enter"){
             return $("#load-biscuit").click();
         }
